@@ -102,7 +102,7 @@ var appController=(function(uiController, fnController){
         console.log(uiController.getInput());
         //2. olj awsan ogogdluudee web deeree tohiroh hesegt ni gargah
         //3. Olj awsan ogogdluudee delgetsin tohiroh hesegt ni gargana
-        //4. tosviig tootsoolno
+        //4. tosviig tootsoolnogd
         //5. etssiin uldegdel, tootsoot delgetsend gargana
     };
     
