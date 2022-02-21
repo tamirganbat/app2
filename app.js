@@ -46,7 +46,7 @@ var uiController = (function(){
     return {
         getInput:function(){
             return{
-              type:document.querySelector(DOMstrings.inputType).value, 
+              type:document.querySelector(DOMstrings.inputType).value,  //expense or income butsaana
               description: document.querySelector(DOMstrings.inputDescription).value,
               value:document.querySelector(DOMstrings.inputValue).value,
             };
@@ -60,6 +60,8 @@ var uiController = (function(){
 })();
 
 // sanhuutei ajillah controller
+
+// data, expense zereg ni sahnuugiin controlleriin private datas
 
 var financeController=(function(){
 
@@ -75,21 +77,43 @@ var financeController=(function(){
         this.value=value;
 
     };
+    // private data
 
     var data={
-        allItems:{
+        items: {
             inc:[],
             exp:[]
         },
 
         totals:{
-            inc=0,
+            inc:0,
             exp:0
         }
         
-    }
+    };
 
-})();
+    return{
+        addItem: function(type, desc, val){
+
+            var item, id;
+            if(data.items[type].lenght===0) id=1;
+            else{
+                id=data.items[type][data.items[type].lenght-1].id+1
+            }
+            if(type==="inc"){
+                item=new Income(id, desc, val)
+
+            }else{
+                item= new Expense(id, desc,val)
+
+            }
+            data.items[type].push(item);
+        // console.log("item added")
+
+        },
+    };
+        
+    })();
 
 //programmin holbogch controller
 
@@ -97,10 +121,10 @@ var appController=(function(uiController, fnController){
 
     
     var ctrlAddItem=function(){
-        //1. oguulah ugugdliig ddelgetsees awna
-        
-        console.log(uiController.getInput());
+        //1. oguulah ugugdliig ddelgetsees awna      
+        var input=uiController.getInput();        
         //2. olj awsan ogogdluudee web deeree tohiroh hesegt ni gargah
+        financeController.addItem(input.type, input.description, input.value);
         //3. Olj awsan ogogdluudee delgetsin tohiroh hesegt ni gargana
         //4. tosviig tootsoolnogd
         //5. etssiin uldegdel, tootsoot delgetsend gargana
@@ -133,3 +157,6 @@ var appController=(function(uiController, fnController){
 
 
 appController.init();
+
+
+// tailbar oruulah
